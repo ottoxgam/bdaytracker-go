@@ -17,12 +17,21 @@ func SortFriends(friends []Friend) []Friend {
 	return friends
 }
 
-func RemoveVKFriends(friends []Friend) []Friend {
+func RemoveTelegramFriends(friends []Friend) []Friend {
 	var result []Friend
 	for _, friend := range friends {
-		if friend.VKID == nil {
+		if friend.TelegramUsername == nil {
 			result = append(result, friend)
 		}
 	}
 	return result
+}
+
+func HasTelegramFriends(friends []Friend) bool {
+	for _, friend := range friends {
+		if friend.TelegramUsername != nil {
+			return true
+		}
+	}
+	return false
 }

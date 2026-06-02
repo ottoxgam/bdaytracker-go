@@ -8,13 +8,11 @@ import (
 )
 
 // formatFriend returns a formatted representation of the given friend.
-// It looks as belows:
-// Name — 20.04
-// If the VK ID of the friend is known, Name is a hyperlink to the VK profile.
+// If a Telegram username is linked, Name is rendered as a t.me hyperlink.
 func formatFriend(friend friendship.Friend) string {
 	name := fmt.Sprintf("<code>%s</code>", friend.Name)
-	if friend.VKID != nil {
-		name = fmt.Sprintf("<a href=\"vk.com/id%d\">%s</a>", *friend.VKID, friend.Name)
+	if friend.TelegramUsername != nil {
+		name = fmt.Sprintf("<a href=\"https://t.me/%s\">%s</a>", *friend.TelegramUsername, friend.Name)
 	}
 
 	if friend.BMonth == 0 || friend.BDay == 0 {

@@ -7,7 +7,6 @@ import (
 	"github.com/lodthe/bdaytracker-go/internal/conf"
 	"github.com/lodthe/bdaytracker-go/internal/tglimiter"
 	"github.com/lodthe/bdaytracker-go/internal/tgstate"
-	"github.com/lodthe/bdaytracker-go/internal/vk"
 )
 
 type Issuer struct {
@@ -15,14 +14,13 @@ type Issuer struct {
 	ctrl    controllers
 }
 
-func NewIssuer(cfg *conf.Config, tgBot *telegram.Bot, tgExecutor *tglimiter.Executor, vkCli *vk.Client, repo tgstate.Repository) *Issuer {
+func NewIssuer(cfg *conf.Config, tgBot *telegram.Bot, tgExecutor *tglimiter.Executor, repo tgstate.Repository) *Issuer {
 	return &Issuer{
 		storage: newStorage(),
 		ctrl: controllers{
 			cfg:        cfg,
 			tgBot:      tgBot,
 			tgExecutor: tgExecutor,
-			vkCli:      vkCli,
 			repo:       repo,
 		},
 	}

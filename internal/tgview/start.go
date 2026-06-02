@@ -8,9 +8,9 @@ type Start struct {
 }
 
 func (st Start) Send(s *usersession.Session) {
-	s.SendInlinePhoto(`Привет! Я умею напоминать про 🎁 Дни Рождения твоих друзей.
+	s.SendInlinePhoto(`Hi! I can remind you about your friends' 🎁 Birthdays.
 
-Ты можешь добавить информацию самостоятельно или импортировать из ВКонтакте.
-        
-Когда наступит чей-то День Рождения, я напомню тебе об этом!`, "greetings.png", nil)
+You can add them manually or link a Telegram friend.
+
+When someone's Birthday arrives, I'll remind you!`, "greetings.png", nil)
 }

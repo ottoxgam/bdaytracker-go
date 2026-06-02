@@ -6,14 +6,12 @@ import (
 	"github.com/lodthe/bdaytracker-go/internal/conf"
 	"github.com/lodthe/bdaytracker-go/internal/tglimiter"
 	"github.com/lodthe/bdaytracker-go/internal/tgstate"
-	"github.com/lodthe/bdaytracker-go/internal/vk"
 )
 
 type controllers struct {
 	cfg        *conf.Config
 	tgBot      *telegram.Bot
 	tgExecutor *tglimiter.Executor
-	vkCli      *vk.Client
 
 	repo tgstate.Repository
 }

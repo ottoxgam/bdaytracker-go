@@ -17,21 +17,18 @@ type Menu struct {
 func (m Menu) Send(s *usersession.Session, edit bool) {
 	text := fmt.Sprintf(`<b>%s</b>
 
-<b>%s</b> — добавить вручную нового друга.
-        
-<b>%s</b> — обновить данные о друзьях из ВКонтакте.
-        
-<b>%s</b> — просмотреть список уже добавленных друзей.`, btn.Menu, btn.AddFriend, btn.AddFromVK, btn.FriendList)
+<b>%s</b> — add a new friend manually.
+
+<b>%s</b> — link a Telegram friend by @username.
+
+<b>%s</b> — view your friends list.`, btn.Menu, btn.AddFriend, btn.AddFromTelegram, btn.FriendList)
 	keyboard := [][]telegram.InlineKeyboardButton{
 		{
 			tgcallback.Button(btn.AddFriend, tgcallback.AddFriend{}),
-			tgcallback.Button(btn.AddFromVK, tgcallback.AddFromVK{}),
+			tgcallback.Button(btn.AddFromTelegram, tgcallback.AddFromTelegram{}),
 		},
 		{
 			tgcallback.Button(btn.FriendList, tgcallback.FriendList{}),
-		},
-		{
-			tgcallback.Button(btn.Settings, tgcallback.Settings{}),
 		},
 	}
 

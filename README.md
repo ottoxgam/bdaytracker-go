@@ -11,15 +11,13 @@ Add a friend's date of birth, and the bot will remind you about the birthday on 
 
 ## Features
 
-The main feature is the ability to import birthday dates from your VK profile. 
-
-Now you haven't to check VK to not miss a friend's birthday. You can track this in Telegram!
+Add friends manually or link them by Telegram @username. Birthday reminders are sent automatically on the right day.
 
 ## How to find the bot
 
 The bot is available by the following link: [@bdaytracker_bot](https://t.me/bdaytracker_bot)
 
-The only provided localization is Russian.
+The bot UI is in English.
 
 ## Technicalities
 

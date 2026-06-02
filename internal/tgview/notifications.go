@@ -10,7 +10,7 @@ type Reminders struct {
 }
 
 func (n Reminders) WishYourFriendsHappyBirthday(s *usersession.Session) (birthdaysNumber int, err error) {
-	text := "Сегодня День Рождения у твоих друзей!\n\n"
+	text := "Today is your friends' Birthday! 🎉\n\n"
 
 	_, month, day := time.Now().Date()
 

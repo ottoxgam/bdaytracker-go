@@ -16,7 +16,6 @@ import (
 	"github.com/lodthe/bdaytracker-go/internal/tglimiter"
 	"github.com/lodthe/bdaytracker-go/internal/tgstate"
 	"github.com/lodthe/bdaytracker-go/internal/usersession"
-	"github.com/lodthe/bdaytracker-go/internal/vk"
 )
 
 type Application struct {
@@ -46,9 +45,8 @@ func NewApplication(ctx context.Context) (*Application, error) {
 
 	stateRepo := tgstate.NewRepository(db)
 	bot := setupBot(config.Telegram)
-	vkCli := vk.NewClient(config.VK.Token)
 	telegramExecutor := tglimiter.NewExecutor()
-	sessionIssuer := usersession.NewIssuer(&config, bot, telegramExecutor, vkCli, stateRepo)
+	sessionIssuer := usersession.NewIssuer(&config, bot, telegramExecutor, stateRepo)
 	collector := tghandle.NewUpdatesCollector(sessionIssuer)
 
 	return &Application{

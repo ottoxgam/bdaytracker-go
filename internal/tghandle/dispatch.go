@@ -47,8 +47,8 @@ func dispatchUpdate(s *usersession.Session, update telegram.Update) {
 		&RemoveFriendHandler{},
 		&RemoveFriendApproveHandler{},
 		&RemoveFriendCancelHandler{},
-		&AddFromVKHandler{},
-		&RemoveFromVKHandler{},
+		&AddFromTelegramHandler{},
+		&RemoveFromTelegramHandler{},
 
 		&MenuHandler{},
 	)

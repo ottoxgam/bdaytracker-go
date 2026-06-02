@@ -11,17 +11,12 @@ type Config struct {
 	AssetsPath string `env:"ASSETS_PATH" envDefault:"./assets"`
 
 	Telegram Telegram
-	VK       VK
 	DB       DB
 	Mailing  Mailing
 }
 
 type Telegram struct {
 	BotToken string `env:"TELEGRAM_BOT_TOKEN,required"`
-}
-
-type VK struct {
-	Token string `env:"VK_TOKEN"`
 }
 
 type DB struct {

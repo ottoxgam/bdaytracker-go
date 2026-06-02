@@ -24,8 +24,6 @@ type State struct {
 
 	LastNotificationAt time.Time
 
-	VKID int
-
 	Friends []friendship.Friend
 
 	NewFriend friendship.Friend

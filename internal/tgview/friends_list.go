@@ -32,9 +32,9 @@ func (f FriendList) Send(s *usersession.Session, clb tgcallback.FriendList) {
 	}
 
 	if text == "" {
-		text = `Пока что друзей нет 😒
+		text = `No friends yet 😒
 
-Ты можешь добавить их в ` + btn.Menu
+You can add them from the ` + btn.Menu
 	}
 
 	s.SendEditText(text, f.keyboard(s, clb), true)
@@ -65,8 +65,8 @@ func (f FriendList) keyboard(s *usersession.Session, clb tgcallback.FriendList) 
 		removeButtons := []telegram.InlineKeyboardButton{
 			tgcallback.Button(btn.RemoveFriend, tgcallback.RemoveFriend{}),
 		}
-		if s.State.VKID != 0 {
-			removeButtons = append(removeButtons, tgcallback.Button(btn.RemoveFromVK, tgcallback.RemoveFromVK{}))
+		if friendship.HasTelegramFriends(s.State.Friends) {
+			removeButtons = append(removeButtons, tgcallback.Button(btn.RemoveFromTelegram, tgcallback.RemoveFromTelegram{}))
 		}
 
 		keyboard = append(keyboard, removeButtons)
