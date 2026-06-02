@@ -1,23 +1,35 @@
-version: '3'
+version: '3.8'
 
 services:
   postgres:
-    image: postgres
+    image: postgres:16-alpine
     environment:
-      POSTGRES_USER: username
-      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: bdaytracker
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
       POSTGRES_DB: bdaytracker
     volumes:
       - postgres-data:/var/lib/postgresql/data/
-    ports:
-      - 50005:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bdaytracker"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     restart: always
 
   app:
     build: .
     depends_on:
-      - postgres
-    # See .env.dist for examples.
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_POSTGRES_DSN: "host=postgres port=5432 user=bdaytracker password=${POSTGRES_PASSWORD:-changeme} dbname=bdaytracker sslmode=disable"
+      DB_NAME: bdaytracker
+      DB_MAX_OPEN_CONNECTIONS: 10
+      DB_MAX_IDLE_CONNECTIONS: 5
+      DB_MAX_CONNECTION_LIFETIME: 5m
+      MAILING_START_HOUR: 7
+      MAILING_END_HOUR: 10
+      MAILING_MAX_REMINDERS_PER_SECOND: 15
     env_file:
       - .env
     restart: always
