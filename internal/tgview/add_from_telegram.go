@@ -19,11 +19,11 @@ func (f AddFromTelegram) AskForUsername(s *usersession.Session) {
 }
 
 func (f AddFromTelegram) AskForDate(s *usersession.Session) {
-	f.send(s, "Now send their birthday in the following format:\n\n<code>DD.MM</code>\n\nFor example, <code>09.07</code> means July 9th.")
+	f.send(s, "Now send their birthday as <code>MM.DD</code> or <code>MM/DD</code>\n\nFor example, <code>07.09</code> or <code>07/09</code> means July 9th.")
 }
 
 func (f AddFromTelegram) FailedToParseDate(s *usersession.Session) {
-	f.send(s, "I couldn't understand that 😔\nThe message must match the following format:\n<code>DD.MM</code>\n\nTry again! 😉")
+	f.send(s, "I couldn't understand that 😔\nPlease use <code>MM.DD</code> or <code>MM/DD</code> format.\n\nTry again! 😉")
 }
 
 func (f AddFromTelegram) WrongNumberOfDays(s *usersession.Session) {

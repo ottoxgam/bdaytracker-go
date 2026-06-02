@@ -18,18 +18,15 @@ func (a AddFriend) AskName(s *usersession.Session) {
 }
 
 func (a AddFriend) AskDate(s *usersession.Session) {
-	a.send(s, `Send their birthday in the following format:
+	a.send(s, `Send their birthday as <code>MM.DD</code> or <code>MM/DD</code>
 
-<code>DD.MM</code>
-
-For example, 09.07 means July 9th.
+For example, <code>07.09</code> or <code>07/09</code> means July 9th.
 `)
 }
 
 func (a AddFriend) FailedToParseDate(s *usersession.Session) {
 	a.send(s, `I couldn't understand that 😔
-The message must match the following format:
-<code>DD.MM</code>
+Please use <code>MM.DD</code> or <code>MM/DD</code> format.
 
 Try again! 😉`)
 }

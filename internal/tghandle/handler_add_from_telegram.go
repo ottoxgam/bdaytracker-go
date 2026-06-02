@@ -1,9 +1,7 @@
 package tghandle
 
 import (
-	"fmt"
 	"strings"
-	"time"
 
 	"github.com/google/uuid"
 
@@ -60,44 +58,19 @@ func (h *AddFromTelegramHandler) handleUsername(s *usersession.Session, raw stri
 }
 
 func (h *AddFromTelegramHandler) handleDate(s *usersession.Session, msgText string) {
-	const numberOfMonths = 12
-	var daysBefore = [...]int{
-		0,
-		31,
-		31 + 28,
-		31 + 28 + 31,
-		31 + 28 + 31 + 30,
-		31 + 28 + 31 + 30 + 31,
-		31 + 28 + 31 + 30 + 31 + 30,
-		31 + 28 + 31 + 30 + 31 + 30 + 31,
-		31 + 28 + 31 + 30 + 31 + 30 + 31 + 31,
-		31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30,
-		31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31,
-		31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30,
-		31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31,
-	}
-
-	friend := s.State.NewFriend
-	_, err := fmt.Sscanf(msgText, "%d.%d", &friend.BDay, &friend.BMonth)
-	if err != nil {
+	month, day, result := parseBirthday(msgText)
+	switch result {
+	case dateParseInvalid:
 		tgview.AddFromTelegram{}.FailedToParseDate(s)
 		return
-	}
-
-	if friend.BMonth < 1 || friend.BMonth > numberOfMonths {
-		tgview.AddFromTelegram{}.FailedToParseDate(s)
-		return
-	}
-
-	daysInMonth := daysBefore[friend.BMonth] - daysBefore[friend.BMonth-1]
-	if friend.BMonth == int(time.February) {
-		daysInMonth++
-	}
-	if friend.BDay < 0 || friend.BDay > daysInMonth {
+	case dateParseWrongDays:
 		tgview.AddFromTelegram{}.WrongNumberOfDays(s)
 		return
 	}
 
+	friend := s.State.NewFriend
+	friend.BMonth = month
+	friend.BDay = day
 	username := friend.Name
 	friend.UUID = uuid.New().String()
 	friend.TelegramUsername = &username

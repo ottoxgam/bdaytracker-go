@@ -3,6 +3,7 @@ package tgview
 import (
 	"fmt"
 	"strconv"
+	"time"
 
 	friendship "github.com/lodthe/bdaytracker-go/internal/friendship"
 )
@@ -19,7 +20,22 @@ func formatFriend(friend friendship.Friend) string {
 		return name
 	}
 
-	return fmt.Sprintf("%s — %02d.%02d", name, friend.BDay, friend.BMonth)
+	return fmt.Sprintf("%s — %s %d%s", name, time.Month(friend.BMonth).String(), friend.BDay, ordinalSuffix(friend.BDay))
+}
+
+func ordinalSuffix(n int) string {
+	switch {
+	case n%100 >= 11 && n%100 <= 13:
+		return "th"
+	case n%10 == 1:
+		return "st"
+	case n%10 == 2:
+		return "nd"
+	case n%10 == 3:
+		return "rd"
+	default:
+		return "th"
+	}
 }
 
 // formatFriendWithIndex returns a formatted representation of the given friend.
